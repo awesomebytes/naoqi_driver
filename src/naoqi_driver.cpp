@@ -63,7 +63,7 @@
 #include "subscribers/teleop.hpp"
 #include "subscribers/moveto.hpp"
 #include "subscribers/speech.hpp"
-
+#include "subscribers/memory.hpp"
 
 /*
  * SERVICES
@@ -878,6 +878,7 @@ void Driver::registerDefaultSubscriber()
   registerSubscriber( boost::make_shared<naoqi::subscriber::TeleopSubscriber>("teleop", "/cmd_vel", "/joint_angles", sessionPtr_) );
   registerSubscriber( boost::make_shared<naoqi::subscriber::MovetoSubscriber>("moveto", "/move_base_simple/goal", sessionPtr_, tf2_buffer_) );
   registerSubscriber( boost::make_shared<naoqi::subscriber::SpeechSubscriber>("speech", "/speech", sessionPtr_) );
+  registerSubscriber( boost::make_shared<naoqi::subscriber::MemorySubscriber>("update_memory", "/update_memory", sessionPtr_) );
 }
 
 void Driver::registerService( service::Service srv )
@@ -1163,6 +1164,7 @@ void Driver::parseJsonFile(std::string filepath, boost::property_tree::ptree &pt
 }
 
 void Driver::addMemoryConverters(std::string filepath){
+
   // Check if the nodeHandle pointer is already initialized
   if(!nhPtr_){
     std::cout << BOLDRED << "The connection with the ROS master does not seem to be initialized." << std::endl
