@@ -57,6 +57,8 @@ public:
 
   void callAll( const std::vector<message_actions::MessageAction>& actions );
 
+  std::vector<std::string> joint_names_to_publish;
+
 private:
 
   /** blatently copied from robot state publisher */

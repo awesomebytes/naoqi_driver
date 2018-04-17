@@ -46,6 +46,7 @@ JointStateConverter::JointStateConverter( const std::string& name, const float& 
   tf2_buffer_(tf2_buffer)
 {
   robot_desc_ = tools::getRobotDescription( robot_ );
+  joint_names_to_publish = { 'HeadYaw','HeadPitch', 'HipRoll', 'HipPitch', 'KneePitch'};
 }
 
 JointStateConverter::~JointStateConverter()
@@ -68,14 +69,15 @@ void JointStateConverter::reset()
   addChildren( tree.getRootSegment() );
 
   // set mimic joint list
-  mimic_.clear();
-  for(std::map< std::string, boost::shared_ptr< urdf::Joint > >::iterator i = model.joints_.begin(); i != model.joints_.end(); i++){
-    if(i->second->mimic){
-      mimic_.insert(make_pair(i->first, i->second->mimic));
-    }
-  }
+  // mimic_.clear();
+  // for(std::map< std::string, boost::shared_ptr< urdf::Joint > >::iterator i = model.joints_.begin(); i != model.joints_.end(); i++){
+  //   if(i->second->mimic){
+  //     mimic_.insert(make_pair(i->first, i->second->mimic));
+  //   }
+  // }
   // pre-fill joint states message
-  msg_joint_states_.name = p_motion_.call<std::vector<std::string> >("getBodyNames", "Body" );
+  //msg_joint_states_.name = p_motion_.call<std::vector<std::string> >("getBodyNames", "Body" );
+  msg_joint_states_.name = joint_names_to_publish;
 }
 
 void JointStateConverter::registerCallback( const message_actions::MessageAction action, Callback_t cb )
@@ -86,7 +88,8 @@ void JointStateConverter::registerCallback( const message_actions::MessageAction
 void JointStateConverter::callAll( const std::vector<message_actions::MessageAction>& actions )
 {
   // get joint state values
-  std::vector<double> al_joint_angles = p_motion_.call<std::vector<double> >("getAngles", "Body", true );
+  // std::vector<double> al_joint_angles = p_motion_.call<std::vector<double> >("getAngles", "Body", true );
+  std::vector<double> al_joint_angles = p_motion_.call<std::vector<double> >("getAngles", joint_names_to_publish, true );
   const ros::Time& stamp = ros::Time::now();
 
   /**
@@ -115,12 +118,12 @@ void JointStateConverter::callAll( const std::vector<message_actions::MessageAct
   }
 
   // for mimic map
-  for(MimicMap::iterator i = mimic_.begin(); i != mimic_.end(); i++){
-    if(joint_state_map.find(i->second->joint_name) != joint_state_map.end()){
-      double pos = joint_state_map[i->second->joint_name] * i->second->multiplier + i->second->offset;
-      joint_state_map[i->first] = pos;
-    }
-  }
+  // for(MimicMap::iterator i = mimic_.begin(); i != mimic_.end(); i++){
+  //   if(joint_state_map.find(i->second->joint_name) != joint_state_map.end()){
+  //     double pos = joint_state_map[i->second->joint_name] * i->second->multiplier + i->second->offset;
+  //     joint_state_map[i->first] = pos;
+  //   }
+  // }
 
   // reset the transforms we want to use at this time
   tf_transforms_.clear();
