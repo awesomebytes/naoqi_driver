@@ -257,6 +257,7 @@ void JointStateConverter::addChildren(const KDL::SegmentMap::const_iterator segm
   std::vector<std::string> white_list;
   white_list.push_back("odom");
   white_list.push_back("base_link");
+  white_list.push_back("base_footprint");
   white_list.push_back("torso");
   white_list.push_back("Neck");
   white_list.push_back("Head");
