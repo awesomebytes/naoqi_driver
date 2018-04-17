@@ -46,7 +46,11 @@ JointStateConverter::JointStateConverter( const std::string& name, const float& 
   tf2_buffer_(tf2_buffer)
 {
   robot_desc_ = tools::getRobotDescription( robot_ );
-  joint_names_to_publish = { 'HeadYaw','HeadPitch', 'HipRoll', 'HipPitch', 'KneePitch'};
+  joint_names_to_publish.push_back("HeadYaw");
+  joint_names_to_publish.push_back("HeadPitch");
+  // joint_names_to_publish.push_back("HipRoll");
+  // joint_names_to_publish.push_back("HipPitch");
+  // joint_names_to_publish.push_back("KneePitch");
 }
 
 JointStateConverter::~JointStateConverter()
@@ -249,17 +253,41 @@ void JointStateConverter::addChildren(const KDL::SegmentMap::const_iterator segm
 {
   const std::string& root = GetTreeElementSegment(segment->second).getName();
 
+  // Super ugly hack, but who cares, only happens once
+  std::vector<std::string> white_list;
+  white_list.push_back("odom");
+  white_list.push_back("base_link");
+  white_list.push_back("torso");
+  white_list.push_back("Neck");
+  white_list.push_back("Head");
+  white_list.push_back("CameraBottom_frame");
+  white_list.push_back("CameraBottom_optical_frame");
+  white_list.push_back("CameraDepth_frame");
+  white_list.push_back("CameraDepth_optical_frame");
+  white_list.push_back("CameraTop_frame");
+  white_list.push_back("CameraTop_optical_frame");
+
+
   const std::vector<KDL::SegmentMap::const_iterator>& children = GetTreeElementChildren(segment->second);
   for (unsigned int i=0; i<children.size(); i++){
     const KDL::Segment& child = GetTreeElementSegment(children[i]->second);
     robot_state_publisher::SegmentPair s(GetTreeElementSegment(children[i]->second), root, child.getName());
-    if (child.getJoint().getType() == KDL::Joint::None){
-      segments_fixed_.insert(std::make_pair(child.getJoint().getName(), s));
-      ROS_DEBUG("Adding fixed segment from %s to %s", root.c_str(), child.getName().c_str());
+    bool in_white_list = false;
+    for(unsigned int j=0; j<white_list.size(); j++){
+      if (white_list[j] == child.getName()){
+          in_white_list = true;
+          break;
+        }
     }
-    else{
-      segments_.insert(std::make_pair(child.getJoint().getName(), s));
-      ROS_DEBUG("Adding moving segment from %s to %s", root.c_str(), child.getName().c_str());
+    if (in_white_list){
+      if (child.getJoint().getType() == KDL::Joint::None){
+        segments_fixed_.insert(std::make_pair(child.getJoint().getName(), s));
+        ROS_DEBUG("Adding fixed segment from %s to %s", root.c_str(), child.getName().c_str());
+      }
+      else{
+        segments_.insert(std::make_pair(child.getJoint().getName(), s));
+        ROS_DEBUG("Adding moving segment from %s to %s", root.c_str(), child.getName().c_str());
+      }
     }
     addChildren(children[i]);
   }
