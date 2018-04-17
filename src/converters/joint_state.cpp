@@ -259,6 +259,13 @@ void JointStateConverter::addChildren(const KDL::SegmentMap::const_iterator segm
   white_list.push_back("base_link");
   white_list.push_back("base_footprint");
   white_list.push_back("torso");
+  white_list.push_back("ImuTorsoAccelerometer_frame");
+  white_list.push_back("ImuTorsoGyrometer_frame");
+  white_list.push_back("Hip");
+  white_list.push_back("Pelvis");
+  white_list.push_back("Tibia");
+  white_list.push_back("ImuBaseAccelerometer_frame");
+  white_list.push_back("ImuBaseGyrometer_frame");
   white_list.push_back("Neck");
   white_list.push_back("Head");
   white_list.push_back("CameraBottom_frame");
