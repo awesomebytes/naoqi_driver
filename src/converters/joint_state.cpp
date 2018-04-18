@@ -48,9 +48,9 @@ JointStateConverter::JointStateConverter( const std::string& name, const float& 
   robot_desc_ = tools::getRobotDescription( robot_ );
   joint_names_to_publish.push_back("HeadYaw");
   joint_names_to_publish.push_back("HeadPitch");
-  // joint_names_to_publish.push_back("HipRoll");
-  // joint_names_to_publish.push_back("HipPitch");
-  // joint_names_to_publish.push_back("KneePitch");
+  joint_names_to_publish.push_back("HipRoll");
+  joint_names_to_publish.push_back("HipPitch");
+  joint_names_to_publish.push_back("KneePitch");
 }
 
 JointStateConverter::~JointStateConverter()
@@ -73,12 +73,12 @@ void JointStateConverter::reset()
   addChildren( tree.getRootSegment() );
 
   // set mimic joint list
-  // mimic_.clear();
-  // for(std::map< std::string, boost::shared_ptr< urdf::Joint > >::iterator i = model.joints_.begin(); i != model.joints_.end(); i++){
-  //   if(i->second->mimic){
-  //     mimic_.insert(make_pair(i->first, i->second->mimic));
-  //   }
-  // }
+  mimic_.clear();
+  for(std::map< std::string, boost::shared_ptr< urdf::Joint > >::iterator i = model.joints_.begin(); i != model.joints_.end(); i++){
+    if(i->second->mimic){
+      mimic_.insert(make_pair(i->first, i->second->mimic));
+    }
+  }
   // pre-fill joint states message
   //msg_joint_states_.name = p_motion_.call<std::vector<std::string> >("getBodyNames", "Body" );
   msg_joint_states_.name = joint_names_to_publish;
@@ -122,12 +122,12 @@ void JointStateConverter::callAll( const std::vector<message_actions::MessageAct
   }
 
   // for mimic map
-  // for(MimicMap::iterator i = mimic_.begin(); i != mimic_.end(); i++){
-  //   if(joint_state_map.find(i->second->joint_name) != joint_state_map.end()){
-  //     double pos = joint_state_map[i->second->joint_name] * i->second->multiplier + i->second->offset;
-  //     joint_state_map[i->first] = pos;
-  //   }
-  // }
+  for(MimicMap::iterator i = mimic_.begin(); i != mimic_.end(); i++){
+    if(joint_state_map.find(i->second->joint_name) != joint_state_map.end()){
+      double pos = joint_state_map[i->second->joint_name] * i->second->multiplier + i->second->offset;
+      joint_state_map[i->first] = pos;
+    }
+  }
 
   // reset the transforms we want to use at this time
   tf_transforms_.clear();
