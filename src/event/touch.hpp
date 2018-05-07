@@ -66,7 +66,7 @@ public:
   ~TouchEventRegister();
 
   void resetPublisher( ros::NodeHandle& nh );
-  void resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
+  void resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
 
   void startProcess();
   void stopProcess();
@@ -90,9 +90,9 @@ private:
   void onEvent();
 
 private:
-  boost::shared_ptr<converter::TouchEventConverter<T> > converter_;
-  boost::shared_ptr<publisher::BasicPublisher<T> > publisher_;
-  //boost::shared_ptr<recorder::BasicEventRecorder<T> > recorder_;
+  std::shared_ptr<converter::TouchEventConverter<T> > converter_;
+  std::shared_ptr<publisher::BasicPublisher<T> > publisher_;
+  //std::shared_ptr<recorder::BasicEventRecorder<T> > recorder_;
 
   qi::SessionPtr session_;
   qi::AnyObject p_memory_;

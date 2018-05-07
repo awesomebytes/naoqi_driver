@@ -53,7 +53,7 @@ public:
   */
   template<typename T>
   Recorder( T rec ):
-    recPtr_( boost::make_shared<RecorderModel<T> >(rec) )
+    recPtr_( std::make_shared<RecorderModel<T> >(rec) )
   {}
 
   /**
@@ -90,7 +90,7 @@ public:
   * this will be called at first for initialization or again when master uri has changed
   * @param ros NodeHandle to advertise the recorder on
   */
-  void reset( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency)
+  void reset( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency)
   {
     recPtr_->reset( gr, frequency );
   }
@@ -127,7 +127,7 @@ private:
     virtual std::string topic() const = 0;
     virtual void writeDump(const ros::Time& time) = 0;
     virtual void setBufferDuration(float duration) = 0;
-    virtual void reset( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency ) = 0;
+    virtual void reset( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency ) = 0;
   };
 
 
@@ -141,7 +141,7 @@ private:
       recorder_( other )
     {}
 
-    void reset( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency )
+    void reset( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float frequency )
     {
       recorder_->reset( gr, frequency );
     }
@@ -179,7 +179,7 @@ private:
     T recorder_;
   };
 
-  boost::shared_ptr<RecorderConcept> recPtr_;
+  std::shared_ptr<RecorderConcept> recPtr_;
 
 }; // class recorder
 

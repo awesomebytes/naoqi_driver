@@ -245,7 +245,7 @@ private:
   boost::thread publisherThread_;
   //ros::Rate r_;
 
-  boost::shared_ptr<recorder::GlobalRecorder> recorder_;
+  std::shared_ptr<recorder::GlobalRecorder> recorder_;
 
   /* boot config */
   boost::property_tree::ptree boot_config_;
@@ -258,9 +258,9 @@ private:
 
   template <typename T1, typename T2, typename T3>
   void _registerMemoryConverter( const std::string& key, float frequency ) {
-    boost::shared_ptr<T1> mfp = boost::make_shared<T1>( key );
-    boost::shared_ptr<T2> mfr = boost::make_shared<T2>( key );
-    boost::shared_ptr<T3> mfc = boost::make_shared<T3>( key , frequency, sessionPtr_, key );
+    std::shared_ptr<T1> mfp = std::make_shared<T1>( key );
+    std::shared_ptr<T2> mfr = std::make_shared<T2>( key );
+    std::shared_ptr<T3> mfc = std::make_shared<T3>( key , frequency, sessionPtr_, key );
     mfc->registerCallback( message_actions::PUBLISH, boost::bind(&T1::publish, mfp, _1) );
     mfc->registerCallback( message_actions::RECORD, boost::bind(&T2::write, mfr, _1) );
     mfc->registerCallback( message_actions::LOG, boost::bind(&T2::bufferize, mfr, _1) );
@@ -312,7 +312,7 @@ private:
   /** tf2 buffer that will be shared between different publishers/subscribers
    * This is only for performance improvements
    */
-  boost::shared_ptr<tf2_ros::Buffer> tf2_buffer_;
+  std::shared_ptr<tf2_ros::Buffer> tf2_buffer_;
 };
 
 } // naoqi

@@ -47,9 +47,9 @@ TouchEventRegister<T>::TouchEventRegister( const std::string& name, const std::v
     isRecording_(false),
     isDumping_(false)
 {
-  publisher_ = boost::make_shared<publisher::BasicPublisher<T> >( name );
-  //recorder_ = boost::make_shared<recorder::BasicEventRecorder<T> >( name );
-  converter_ = boost::make_shared<converter::TouchEventConverter<T> >( name, frequency, session );
+  publisher_ = std::make_shared<publisher::BasicPublisher<T> >( name );
+  //recorder_ = std::make_shared<recorder::BasicEventRecorder<T> >( name );
+  converter_ = std::make_shared<converter::TouchEventConverter<T> >( name, frequency, session );
 
   converter_->registerCallback( message_actions::PUBLISH, boost::bind(&publisher::BasicPublisher<T>::publish, publisher_, _1) );
   //converter_->registerCallback( message_actions::RECORD, boost::bind(&recorder::BasicEventRecorder<T>::write, recorder_, _1) );
@@ -76,7 +76,7 @@ void TouchEventRegister<T>::resetPublisher(ros::NodeHandle& nh)
 }
 
 template<class T>
-void TouchEventRegister<T>::resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
+void TouchEventRegister<T>::resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
 {
   //recorder_->reset(gr, converter_->frequency());
 }

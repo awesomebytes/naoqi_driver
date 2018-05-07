@@ -48,7 +48,7 @@ public:
 
   void write( std::list<rosgraph_msgs::Log>& log_msgs );
 
-  void reset(boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float conv_frequency );
+  void reset(std::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float conv_frequency );
 
   void bufferize( std::list<rosgraph_msgs::Log>& log_msgs );
 
@@ -88,7 +88,7 @@ protected:
   bool is_initialized_;
   bool is_subscribed_;
 
-  boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
+  std::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
 
   float buffer_frequency_;
   float conv_frequency_;

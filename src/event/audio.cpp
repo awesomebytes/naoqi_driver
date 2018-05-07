@@ -59,9 +59,9 @@ AudioEventRegister::AudioEventRegister( const std::string& name, const float& fr
     channelMap.push_back(1);
     channelMap.push_back(4);
   }
-  publisher_ = boost::make_shared<publisher::BasicPublisher<naoqi_bridge_msgs::AudioBuffer> >( name );
-  recorder_ = boost::make_shared<recorder::BasicEventRecorder<naoqi_bridge_msgs::AudioBuffer> >( name );
-  converter_ = boost::make_shared<converter::AudioEventConverter>( name, frequency, session );
+  publisher_ = std::make_shared<publisher::BasicPublisher<naoqi_bridge_msgs::AudioBuffer> >( name );
+  recorder_ = std::make_shared<recorder::BasicEventRecorder<naoqi_bridge_msgs::AudioBuffer> >( name );
+  converter_ = std::make_shared<converter::AudioEventConverter>( name, frequency, session );
 
   converter_->registerCallback( message_actions::PUBLISH, boost::bind(&publisher::BasicPublisher<naoqi_bridge_msgs::AudioBuffer>::publish, publisher_, _1) );
   converter_->registerCallback( message_actions::RECORD, boost::bind(&recorder::BasicEventRecorder<naoqi_bridge_msgs::AudioBuffer>::write, recorder_, _1) );
@@ -79,7 +79,7 @@ void AudioEventRegister::resetPublisher(ros::NodeHandle& nh)
   publisher_->reset(nh);
 }
 
-void AudioEventRegister::resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
+void AudioEventRegister::resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
 {
   recorder_->reset(gr, converter_->frequency());
 }

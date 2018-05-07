@@ -21,6 +21,7 @@
 
 #include <qi/session.hpp>
 
+#include <iostream>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/algorithm/string/replace.hpp>

@@ -55,7 +55,7 @@ public:
   ~EventRegister();
 
   void resetPublisher( ros::NodeHandle& nh );
-  void resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
+  void resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
 
   void startProcess();
   void stopProcess();
@@ -73,9 +73,9 @@ private:
   void onEvent();
 
 private:
-  boost::shared_ptr<Converter> converter_;
-  boost::shared_ptr<Publisher> publisher_;
-  boost::shared_ptr<Recorder> recorder_;
+  std::shared_ptr<Converter> converter_;
+  std::shared_ptr<Publisher> publisher_;
+  std::shared_ptr<Recorder> recorder_;
 
   qi::AnyObject p_memory_;
   qi::AnyObject signal_;

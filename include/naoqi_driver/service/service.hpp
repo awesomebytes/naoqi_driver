@@ -48,7 +48,7 @@ public:
   */
   template<typename T>
   Service( T srv ):
-    srvPtr_( boost::make_shared<ServiceModel<T> >(srv) )
+    srvPtr_( std::make_shared<ServiceModel<T> >(srv) )
   {}
 
   /**
@@ -127,7 +127,7 @@ private:
     T service_;
   };
 
-  boost::shared_ptr<ServiceConcept> srvPtr_;
+  std::shared_ptr<ServiceConcept> srvPtr_;
 
 }; // class service
 

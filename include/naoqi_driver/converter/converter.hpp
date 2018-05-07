@@ -49,7 +49,7 @@ public:
   */
   template<typename T>
   Converter( T conv ):
-    convPtr_( boost::make_shared<ConverterModel<T> >(conv) )
+    convPtr_( std::make_shared<ConverterModel<T> >(conv) )
   {}
 
   /**
@@ -151,7 +151,7 @@ private:
     T converter_;
   };
 
-  boost::shared_ptr<ConverterConcept> convPtr_;
+  std::shared_ptr<ConverterConcept> convPtr_;
 
 }; // class converter
 

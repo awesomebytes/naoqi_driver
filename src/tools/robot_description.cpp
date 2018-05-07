@@ -15,6 +15,8 @@
  *
 */
 
+#include <iostream>
+
 /*
 * LOCAL includes
 */

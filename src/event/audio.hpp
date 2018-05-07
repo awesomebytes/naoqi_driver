@@ -63,7 +63,7 @@ public:
   ~AudioEventRegister();
 
   void resetPublisher( ros::NodeHandle& nh );
-  void resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
+  void resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr );
 
   void startProcess();
   void stopProcess();
@@ -83,9 +83,9 @@ private:
   void onEvent();
 
 private:
-  boost::shared_ptr<converter::AudioEventConverter> converter_;
-  boost::shared_ptr<publisher::BasicPublisher<naoqi_bridge_msgs::AudioBuffer> > publisher_;
-  boost::shared_ptr<recorder::BasicEventRecorder<naoqi_bridge_msgs::AudioBuffer> > recorder_;
+  std::shared_ptr<converter::AudioEventConverter> converter_;
+  std::shared_ptr<publisher::BasicPublisher<naoqi_bridge_msgs::AudioBuffer> > publisher_;
+  std::shared_ptr<recorder::BasicEventRecorder<naoqi_bridge_msgs::AudioBuffer> > recorder_;
 
   qi::SessionPtr session_;
   qi::AnyObject p_audio_;

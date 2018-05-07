@@ -47,7 +47,7 @@ public:
 
   void write(const std::vector<sensor_msgs::Range>& sonar_msgs );
 
-  void reset( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float conv_frequency );
+  void reset( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr, float conv_frequency );
 
   void bufferize(const std::vector<sensor_msgs::Range>& sonar_msgs );
 
@@ -87,7 +87,7 @@ protected:
   bool is_initialized_;
   bool is_subscribed_;
 
-  boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
+  std::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
   std::vector<std::string> topics_;
 
   float buffer_frequency_;

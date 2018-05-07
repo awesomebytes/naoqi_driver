@@ -103,7 +103,7 @@ public:
 
   }
 
-  virtual void reset(boost::shared_ptr<GlobalRecorder> gr, float conv_frequency)
+  virtual void reset(std::shared_ptr<GlobalRecorder> gr, float conv_frequency)
   {
     gr_ = gr;
     is_initialized_ = true;
@@ -162,7 +162,7 @@ protected:
   bool is_initialized_;
   bool is_subscribed_;
 
-  boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
+  std::shared_ptr<naoqi::recorder::GlobalRecorder> gr_;
 
 }; // class
 

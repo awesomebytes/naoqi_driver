@@ -61,7 +61,7 @@ void SonarRecorder::writeDump(const ros::Time& time)
   }
 }
 
-void SonarRecorder::reset(boost::shared_ptr<GlobalRecorder> gr, float conv_frequency)
+void SonarRecorder::reset(std::shared_ptr<GlobalRecorder> gr, float conv_frequency)
 {
   gr_ = gr;
   conv_frequency_ = conv_frequency;

@@ -44,9 +44,9 @@ EventRegister<Converter, Publisher, Recorder>::EventRegister( const std::string&
     isRecording_(false),
     isDumping_(false)
 {
-  publisher_ = boost::make_shared<Publisher>( key_ );
-  recorder_ = boost::make_shared<Recorder>( key_ );
-  converter_ = boost::make_shared<Converter>( key_, 0, session, key_ );
+  publisher_ = std::make_shared<Publisher>( key_ );
+  recorder_ = std::make_shared<Recorder>( key_ );
+  converter_ = std::make_shared<Converter>( key_, 0, session, key_ );
 
   converter_->registerCallback( message_actions::PUBLISH, boost::bind(&Publisher::publish, publisher_, _1) );
   converter_->registerCallback( message_actions::RECORD, boost::bind(&Recorder::write, recorder_, _1) );
@@ -67,7 +67,7 @@ void EventRegister<Converter, Publisher, Recorder>::resetPublisher(  ros::NodeHa
 }
 
 template <typename Converter, typename Publisher, typename Recorder>
-void EventRegister<Converter, Publisher, Recorder>::resetRecorder( boost::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
+void EventRegister<Converter, Publisher, Recorder>::resetRecorder( std::shared_ptr<naoqi::recorder::GlobalRecorder> gr )
 {
   recorder_->reset(gr, converter_->frequency());
 }

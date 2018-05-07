@@ -42,9 +42,9 @@ class JointStateConverter : public BaseConverter<JointStateConverter>
 
   typedef boost::function<void(sensor_msgs::JointState&, std::vector<geometry_msgs::TransformStamped>&) > Callback_t;
 
-  typedef boost::shared_ptr<tf2_ros::Buffer> BufferPtr;
+  typedef std::shared_ptr<tf2_ros::Buffer> BufferPtr;
 
-  typedef std::map<std::string, boost::shared_ptr<urdf::JointMimic> > MimicMap;
+  typedef std::map<std::string, std::shared_ptr<urdf::JointMimic> > MimicMap;
 
 public:
   JointStateConverter( const std::string& name, const float& frequency, const BufferPtr& tf2_buffer, const qi::SessionPtr& session );

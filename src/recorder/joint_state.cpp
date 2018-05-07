@@ -66,7 +66,7 @@ void JointStateRecorder::writeDump(const ros::Time& time)
   }
 }
 
-void JointStateRecorder::reset(boost::shared_ptr<GlobalRecorder> gr, float conv_frequency)
+void JointStateRecorder::reset(std::shared_ptr<GlobalRecorder> gr, float conv_frequency)
 {
   gr_ = gr;
   conv_frequency_ = conv_frequency;

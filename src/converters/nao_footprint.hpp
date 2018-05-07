@@ -37,7 +37,7 @@ namespace converter
 namespace nao
 {
 
-inline void addBaseFootprint( boost::shared_ptr<tf2_ros::Buffer> tf2_buffer, std::vector<geometry_msgs::TransformStamped>& tf_transforms, const ros::Time& time )
+inline void addBaseFootprint( std::shared_ptr<tf2_ros::Buffer> tf2_buffer, std::vector<geometry_msgs::TransformStamped>& tf_transforms, const ros::Time& time )
 {
   bool canTransform = tf2_buffer->canTransform("odom", "l_sole", time, ros::Duration(0.1) );
   if (!canTransform)
