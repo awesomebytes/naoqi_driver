@@ -6,22 +6,22 @@
     {
       "enabled"       : true,
       "resolution"    : 1,
-      "fps"           : 20,
-      "recorder_fps"  : 5
+      "fps"           : 30,
+      "recorder_fps"  : 0
     },
     "bottom_camera":
     {
       "enabled"       : true,
       "resolution"    : 1,
-      "fps"           : 10,
-      "recorder_fps"  : 5
+      "fps"           : 30,
+      "recorder_fps"  : 0
     },
     "depth_camera":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "resolution"    : 1,
       "fps"           : 20,
-      "recorder_fps"  : 5
+      "recorder_fps"  : 0
     },
     "ir_camera":
     {
@@ -32,7 +32,7 @@
     },
     "info":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 1
     },
     "logs":
@@ -42,7 +42,7 @@
     },
     "diag":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 1
     },
     "imu_torso":
@@ -57,17 +57,17 @@
     },
     "joint_states":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 20
     },
     "laser":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 10
     },
     "sonar":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 10
     },
     "audio":
@@ -88,7 +88,7 @@
     },
     "odom":
     {
-      "enabled"       : true,
+      "enabled"       : false,
       "frequency"     : 20
     }
   }
