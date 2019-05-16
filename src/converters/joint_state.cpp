@@ -274,6 +274,8 @@ void JointStateConverter::addChildren(const KDL::SegmentMap::const_iterator segm
   white_list.push_back("CameraDepth_optical_frame");
   white_list.push_back("CameraTop_frame");
   white_list.push_back("CameraTop_optical_frame");
+  white_list.push_back("SonarBack_frame");
+  white_list.push_back("SonarFront_frame");
 
 
   const std::vector<KDL::SegmentMap::const_iterator>& children = GetTreeElementChildren(segment->second);
