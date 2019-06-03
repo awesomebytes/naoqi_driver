@@ -144,7 +144,7 @@ void JointStateConverter::callAll( const std::vector<message_actions::MessageAct
    * but this would require a proper URDF 
    * with a base_link and base_footprint in the base
    */
-  std::vector<float> al_odometry_data = p_motion_.call<std::vector<float> >( "getPosition", "Torso", 1, true );
+  std::vector<float> al_odometry_data = p_motion_.call<std::vector<float> >( "getPosition", "Leg", 1, true );
   const ros::Time& odom_stamp = ros::Time::now();
   const float& odomX  =  al_odometry_data[0];
   const float& odomY  =  al_odometry_data[1];
@@ -159,7 +159,7 @@ void JointStateConverter::callAll( const std::vector<message_actions::MessageAct
 
   static geometry_msgs::TransformStamped msg_tf_odom;
   msg_tf_odom.header.frame_id = "odom";
-  msg_tf_odom.child_frame_id = "base_link";
+  msg_tf_odom.child_frame_id = "base_footprint";
   msg_tf_odom.header.stamp = odom_stamp;
 
   msg_tf_odom.transform.translation.x = odomX;
