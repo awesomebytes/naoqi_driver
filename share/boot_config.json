@@ -6,21 +6,21 @@
     {
       "enabled"       : true,
       "resolution"    : 1,
-      "fps"           : 20,
+      "fps"           : 10,
       "recorder_fps"  : 0
     },
     "bottom_camera":
     {
       "enabled"       : true,
       "resolution"    : 1,
-      "fps"           : 20,
+      "fps"           : 10,
       "recorder_fps"  : 0
     },
     "depth_camera":
     {
       "enabled"       : true,
       "resolution"    : 1,
-      "fps"           : 20,
+      "fps"           : 10,
       "recorder_fps"  : 0
     },
     "ir_camera":
